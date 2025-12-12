@@ -27,7 +27,10 @@ def get_warnsdorff_moves(x, y, x_moves, y_moves, board):
     return [(x, y) for _, x, y in move_list]
 
 def solve_knight_tour(board, x, y, move_count, x_moves, y_moves, path, is_closed, max_iterations):
-    
+
+    solve_knight_tour.count += 1
+    if solve_knight_tour.count > max_iterations:
+        return False
     if move_count == len(board) * len(board):
         if is_closed:
             start_x, start_y = path[0]
@@ -102,6 +105,7 @@ def knight_tour():
     start_pos = input(f"Enter the starting position (e.g., 'A1', 'H8'): ").strip().lower()
     start_x = ord(start_pos[0]) - ord('a')
     start_y = 8 - int(start_pos[1])
+    solve_knight_tour.count = 0
     
     board[start_x][start_y] = 0
     path = [(start_x, start_y)]
